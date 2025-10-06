@@ -21,14 +21,14 @@
 let ghosts = [];
 let mood = "hunt"; 
 let isNight = false;
-let audio = new Audio('wompWomp.mp3');
+let audio = new Audio('sounds/wompWomp.mp3');
 let gameState = "start";
 let bgDay, bgNight;
 
 // background def
 function preload(){
-  bgDay = loadImage('dayTimeHauntedCrib.png');
-  bgNight = loadImage('nightTimeHauntedCrib.png');
+  bgDay = loadImage('images/dayTimeHauntedCrib.png');
+  bgNight = loadImage('images/nightTimeHauntedCrib.png');
 }
 
 function setup() {
