@@ -39,8 +39,24 @@ function addStudent(){
   let inputName = document.getElementById('name')
   let inputSex = document.getElementById('sex')
   let inputGrade = document.getElementById('grade')
+  
 
   studentList.push(student)
+  addToTable
+  document.getElementById("studentForm").reset();
+}
+
+function addToTable(){
+  let table = document.getElementById("studentList");
+  let row = table.insertRow(-1)
+
+  let cell1 = row.insertCell(0);
+  let cell2 = row.insertCell(1);
+  let cell3 = row.insertCell(2);
+
+  cell1.textContent = student.name;
+  cell2.textContent = student.sex;
+  cell2.textContent = student.grade;
 }
 
 
