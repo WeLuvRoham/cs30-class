@@ -18,12 +18,8 @@ const studentList = [];
 let inputName;
 let inputSex;
 let inputGrade;
-//defining student object
-const student = {
-  name: inputName,
-  sex: inputSex,
-  grade: inputGrade
-};
+
+
 
 
 
@@ -39,24 +35,35 @@ function addStudent(){
   let inputName = document.getElementById('name')
   let inputSex = document.getElementById('sex')
   let inputGrade = document.getElementById('grade')
-  
 
+  const student = {
+    name: inputName,
+    sex: inputSex,
+    grade: inputGrade
+};
+  
   studentList.push(student)
-  addToTable
+  addToTable(student)
   document.getElementById("studentForm").reset();
 }
 
-function addToTable(){
-  let table = document.getElementById("studentList");
-  let row = table.insertRow(-1)
+function addToTable(student){
+  const tableBody = document.querySelector("#studentList tbody");
+  const row = tableBody.insertRow();
 
-  let cell1 = row.insertCell(0);
-  let cell2 = row.insertCell(1);
-  let cell3 = row.insertCell(2);
+  
+  const cell1 = row.insertCell(0);
+  const cell2 = row.insertCell(1);
+  const cell3 = row.insertCell(2);
 
   cell1.textContent = student.name;
   cell2.textContent = student.sex;
-  cell2.textContent = student.grade;
+  cell3.textContent = student.grade;
+
+  row.appendChild(cell1);
+  row.appendChild(cell2);
+  row.appendChild(cell3);
+  tableBody.appendChild(row);
 }
 
 
