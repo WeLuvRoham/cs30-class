@@ -1,28 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Data Organizer</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  
+  <script src="libraries/p5.js"></script>
+  <script src="libraries/p5.sound.min.js"></script>
+</head>
 
-    <title>Sketch</title>
+<body>
+  <div class="container mt-4">
+    <h1>Student Data Organizer</h1>
 
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <form id="studentForm" class="mb-4">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <input type="text" id="name" class="form-control" placeholder="First and Last Name" required />
+        </div>
+        <div class="col-md-3">
+          <input type="number" id="grade" class="form-control" placeholder="Grade%" min="0" max="100" required />
+        </div>
+        <div class="col-md-3">
+          <select id="sex" class="form-select" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn btn-primary" onclick="addStudent()">Add Student</button>
+        </div>
+        <div class="col-md-2">
+          <button type="deleteButton" class="btn btn-primary" onclick="deleteMode()">Delete</button>
+        </div>
+      </div>
+    </form>
 
-    <!-- Linking to the main p5.js library, which allows your code to use all 
-       p5 functions. Using this version while developing your code allows p5 
-       to provide more Friendly Error Messages if you mess something up...-->
-    <script src="libraries/p5.js"></script>
+    <table id="studentList" class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Sex</th>
+          <th>Grade</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </div>
 
-    <!-- Once your project is working completely, you can comment out the link
-       to p5.js above, and instead link to this minified version. The minified
-       version takes less space, and turns off Friendly Error Messages. This 
-       increases the speed of your program quite dramatically in some cases.-->
-    <!-- <script src="libraries/p5.min.js"></script> -->
-
-    <script src="libraries/p5.sound.min.js"></script>
-  </head>
-
-  <body>
-    <script src="sketch.js"></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  <script src="sketch.js"></script>
+</body>
 </html>

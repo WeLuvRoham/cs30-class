@@ -32,33 +32,35 @@ function draw() {
 }
 
 function addStudent(){
-  let inputName = document.getElementById('name')
-  let inputSex = document.getElementById('sex')
-  let inputGrade = document.getElementById('grade')
+  let inputName = document.getElementById('name').value;
+  let inputSex = document.getElementById('sex').value;
+  let inputGrade = document.getElementById('grade').value;
 
   const student = {
     name: inputName,
     sex: inputSex,
     grade: inputGrade
-};
+  };
   
-  studentList.push(student)
-  addToTable(student)
+  studentList.push(student);
+  addToTable(student);
   document.getElementById("studentForm").reset();
 }
 
 function addToTable(student){
+  const table = document.getElementById('studentList').getElementsByTagName('tbody')[0];
+  const newRow = table.insertRow();
+  
+  const nameCell = newRow.insertCell();
+  const sexCell = newRow.insertCell();
+  const gradeCell = newRow.insertCell();
+  
+  nameCell.textContent = student.name;
+  sexCell.textContent = student.sex;
+  gradeCell.textContent = student.grade;
   const tableBody = document.querySelector("#studentList tbody");
   const row = tableBody.insertRow();
 
-  
-  const cell1 = row.insertCell(0);
-  const cell2 = row.insertCell(1);
-  const cell3 = row.insertCell(2);
-
-  cell1.textContent = student.name;
-  cell2.textContent = student.sex;
-  cell3.textContent = student.grade;
 
   row.appendChild(cell1);
   row.appendChild(cell2);

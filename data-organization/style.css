@@ -1,17 +1,21 @@
-/* ================== Body & Background ================== */
+/* Body & Background */
 body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* ================== Heading ================== */
+/* Heading */
 h1 {
   font-weight: 700;
   color: #2c3e50;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
 }
 
-/* ================== Form Card ================== */
+/*  Form Card  */
 #studentForm {
   background: #ffffffcc; /* semi-transparent white */
   padding: 20px;
@@ -46,12 +50,20 @@ h1 {
   transition: all 0.2s ease-in-out;
 }
 
+#studentForm deleteButton {
+  background-color: #e01c1c;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
 #studentForm button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
 }
 
-/* ================== Table ================== */
+/*  Table  */
 #studentList {
   background: #fff;
   border-radius: 15px;
@@ -70,7 +82,7 @@ h1 {
   text-align: center;
   vertical-align: middle;
   font-size: 0.95rem;
-  padding: 12px;
+  padding: 0px;
 }
 
 /* Striped row highlight */
@@ -83,7 +95,7 @@ h1 {
   transition: background-color 0.2s ease-in-out;
 }
 
-/* ================== Responsive tweaks ================== */
+/*  Responsive tweaks  */
 @media (max-width: 768px) {
   #studentForm .col-md-5,
   #studentForm .col-md-3,
