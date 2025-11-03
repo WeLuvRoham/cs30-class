@@ -4,7 +4,12 @@
 - [Bouncing Balls](bouncing-balls)
 - [Pearlin Noise](pearling-noise)
 - [Pearlin Bubbles](pearlin-bubbles)
+- [Two D Array](two-array)
+- [Neighoburs](rectangle-neighbours)
+- [Game of Life](game-of-life)
+- [Character In Grid](character-in-grid)
 
 ## Assignments
 - [Interactive Scene](interactive-scene)
 - [Data Organization](data-organization)
+- [Mine Sweeper](mine-sweeper)
