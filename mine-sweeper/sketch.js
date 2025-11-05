@@ -11,6 +11,22 @@ let rows;
 let cols;
 let gameStatus = true;
 
+
+//preload images
+function preload() {
+  bomb = loadImage("bomb.png")
+  gameOver = loadImage("gameOver.png")
+  empty = loadImage("emptyBlock.png")
+  one = loadImage("oneBlock.png");
+  tow = loadImage("twoBlock.png");
+  three = loadImage("threeBlock.png");
+  four = loadImage("fourBlock.png");
+  five = loadImage("fiveBlock.png");
+  six = loadImage("sixBlock.png");
+  seven = loadImage("sevenBlock.png")
+}
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   cols = Math.floor(width/CELL_SIZE);
@@ -31,17 +47,65 @@ function mousePressed(){
   
 }
 
+function mousePressed() {
+  let x = Math.floor(mouseX/CELL_SIZE);
+  let y = Math.floor(mouseY/CELL_SIZE);
+
+  //self
+  toggleCell(x ,y);
+}
+
 function toggleCell(x,y){
   if (x>=0 && x<cols && y>= 0 && y< rows){
     if (grid[y][x] === 0){
       grid[y][x] = 1;
-
+      gameStatus = false;
+      fill("red")
+      endGame()
     }
     else if (grid[y][x] === 1){
       grid[y][x] = 0;
-
+      checkBlock(y, x)
     }
 }
+}
+
+function checkBlock(y, x){
+  //check around block for data
+  total =  grid[x-1,y] + grid[x,y-1] + grid[x-1,y-1] + grid[x+1,y] + grid[x,y+1] + grid[x+1,y+1]
+  if (total === 0 ){
+    image(empty, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+    knockOtherEmptyBlocks()
+  }
+  if (total === 1){
+    image(one, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 2){
+    image(tow, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 3){
+    image(three, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 4){
+    image(four, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 5){
+    image(five, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 6){
+    image(six, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  if (total === 7){
+    image(seven, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+  }
+  
+}
+
+function endGame(){
+  if (gameStatus === false){
+    image(gameOver, x*width, y*height, grid)
+  }
+
 }
 
 function keyPressed() {
