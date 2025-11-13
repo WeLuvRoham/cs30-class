@@ -13,6 +13,9 @@ let gameStatus = true;
 let bomb, gameOver, empty, one, two, three, four, five, six, seven;
 let revealed;
 let deathScreen;
+let flagImage;
+let flags; // 2D grid for flagged cells
+let cnv; // canvas reference so we can block context menu
 
 //preload images
 function preload() {
@@ -26,21 +29,30 @@ function preload() {
   five = loadImage("fiveBlock.png");
   six = loadImage("sixBlock.png");
   seven = loadImage("sevenBlock.png");
-  flagImage = loadImage("flag.png")
+  flagImage = loadImage("flag.png");
   deathScreen = createImg('gameOver.png', "Game Over Screen");
+  // center the image
+  deathScreen.style('position', 'absolute');
+  deathScreen.style('left', '50%');
+  deathScreen.style('top', '50%');
+  deathScreen.style('transform', 'translate(-50%,-50%)');
   deathScreen.hide();
 }
 
 
 function setup() {
-  createCanvas(windowWidth, windowHeight);
+  cnv = createCanvas(windowWidth, windowHeight);
+  // prevent the browser context menu on right click over the canvas
+  cnv.elt.oncontextmenu = () => false;
   cols = Math.floor(width/CELL_SIZE);
   rows = Math.floor(height/CELL_SIZE);
   grid = generateRandomGrid(cols, rows);
   // create a revealed grid (0 = covered, 1 = revealed)
   revealed = generateEmptyGrid(cols, rows);
+  // create flags grid
+  flags = generateEmptyGrid(cols, rows);
 
-  deathScreen.position(CENTER, CENTER);
+  // deathScreen is positioned with CSS in preload()
 }
 
 function draw() {
@@ -49,6 +61,8 @@ function draw() {
 }
 
 function mousePressed() {
+  // ignore input when game is over
+  if (!gameStatus) return;
   if (mouseButton===LEFT){
     let x = Math.floor(mouseX / CELL_SIZE);
     let y = Math.floor(mouseY / CELL_SIZE);
@@ -62,26 +76,30 @@ function mousePressed() {
 }
 
 function toggleCell(x,y){
-  if (x>=0 && x<cols && y>= 0 && y< rows){
-    // if it's a bomb -> end game
-    if (grid[y][x] === 1){
-      revealed[y][x] = 1;
-      
-
-      gameStatus = false;
-      endGame();
-    }
-    // reveal this cell
+  if (!(x>=0 && x<cols && y>= 0 && y< rows)) return;
+  // already revealed
+  if (revealed[y][x]) return;
+  // if it's a bomb -> end game
+  if (grid[y][x] === 1){
     revealed[y][x] = 1;
-    // optional: if no adjacent bombs, reveal neighbors (simple flood-fill)
-    if (countNeighbors(x, y) === 0) {
-      revealNeighbors(x, y);
-    }
-}
+    endGame();
+    return;
+  }
+  // reveal this cell
+  revealed[y][x] = 1;
+  // optional: if no adjacent bombs, reveal neighbors (simple flood-fill)
+  if (countNeighbors(x, y) === 0) {
+    revealNeighbors(x, y);
+  }
 }
 
 function flag(x,y) {
-  grid[y][x] = image(flagImage,x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE )
+  // bounds check
+  if (!(x>=0 && x<cols && y>= 0 && y< rows)) return;
+  // don't allow flagging revealed cells
+  if (revealed[y][x]) return;
+  // toggle flag (0/1)
+  flags[y][x] = flags[y][x] ? 0 : 1;
 
 }
 
@@ -119,24 +137,39 @@ function revealNeighbors(x, y) {
 }
 
 function endGame(){
-  if (gameStatus === false){
-    deathScreen.show();
-    grid = generateEmptyGrid(cols, rows)
+  // reveal bombs and stop the game
+  gameStatus = false;
+  // reveal all bombs
+  for (let y = 0; y < rows; y++){
+    for (let x = 0; x < cols; x++){
+      if (grid[y][x] === 1) revealed[y][x] = 1;
+    }
   }
-  }
+  deathScreen.show();
+}
 
 
 
 function keyPressed() {
   if (key === " " && gameStatus===false) {
-    gameStatus = true;
-    setup()
-    draw()
+    resetGame();
   }
   else if (key === "e"){
     grid = generateEmptyGrid(cols, rows);
-    
+    revealed = generateEmptyGrid(cols, rows);
+    flags = generateEmptyGrid(cols, rows);
   }
+}
+
+function resetGame(){
+  // keep canvas size — just regenerate grids
+  cols = Math.floor(width/CELL_SIZE);
+  rows = Math.floor(height/CELL_SIZE);
+  grid = generateRandomGrid(cols, rows);
+  revealed = generateEmptyGrid(cols, rows);
+  flags = generateEmptyGrid(cols, rows);
+  gameStatus = true;
+  deathScreen.hide();
 }
 
 function displayGrid() {
@@ -146,6 +179,10 @@ function displayGrid() {
       if (!revealed[y][x]) {
         fill("grey");
         square(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE);
+        // draw flag if present
+        if (flags && flags[y] && flags[y][x]){
+          image(flagImage, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        }
       } else {
         // revealed
         if (grid[y][x] === 1) {
