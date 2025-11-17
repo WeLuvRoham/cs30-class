@@ -3,7 +3,8 @@
 // 10/28/2025
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+//used flood fill, utalized counting neighbours, have two mouse features, have a ton of images, and conutless functions. as well as two grids for flagging
+// not mentioning a lot of things like also revealing bombs at death
 
 const CELL_SIZE = 50;
 let grid;
@@ -43,7 +44,7 @@ function preload() {
 function setup() {
   cnv = createCanvas(windowWidth, windowHeight);
   // prevent the browser context menu on right click over the canvas
-  cnv.elt.oncontextmenu = () => false;
+  cnv.elt.oncontextmenu = () => false; //annotation arrow
   cols = Math.floor(width/CELL_SIZE);
   rows = Math.floor(height/CELL_SIZE);
   grid = generateRandomGrid(cols, rows);
@@ -87,7 +88,7 @@ function toggleCell(x,y){
   }
   // reveal this cell
   revealed[y][x] = 1;
-  // optional: if no adjacent bombs, reveal neighbors (simple flood-fill)
+  //if no adjacent bombs, reveal neighbors (flood-fill)
   if (countNeighbors(x, y) === 0) {
     revealNeighbors(x, y);
   }

@@ -8,6 +8,8 @@
 - [Neighoburs](rectangle-neighbours)
 - [Game of Life](game-of-life)
 - [Character In Grid](character-in-grid)
+- [Walker Oop](walker-oop)
+- [Fireworks Oop](fireworks)
 
 ## Assignments
 - [Interactive Scene](interactive-scene)
