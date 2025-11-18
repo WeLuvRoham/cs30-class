@@ -80,7 +80,7 @@ function toggleCell(x,y){
   if (!(x>=0 && x<cols && y>= 0 && y< rows)) return;
   // already revealed
   if (revealed[y][x]) return;
-  // if it's a bomb -> end game
+  // if it's a bomb then end game
   if (grid[y][x] === 1){
     revealed[y][x] = 1;
     endGame();
