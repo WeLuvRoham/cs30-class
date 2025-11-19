@@ -10,6 +10,7 @@
 - [Character In Grid](character-in-grid)
 - [Walker Oop](walker-oop)
 - [Fireworks Oop](fireworks)
+- [Nodes Oop](nodes)
 
 ## Assignments
 - [Interactive Scene](interactive-scene)
